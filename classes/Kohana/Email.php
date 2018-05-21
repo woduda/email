@@ -353,9 +353,14 @@ class Kohana_Email {
 	 * @param   string  file path
 	 * @return  Email
 	 */
-	public function attach_file($path)
+	public function attach_file($file_path, $file_name = null)
 	{
-		$this->_message->attach(Swift_Attachment::fromPath($path));
+		$attachment = Swift_Attachment::fromPath($file_path);
+		if ($file_name !== null)
+		{
+			$attachment->setFilename($file_name);
+		}
+		$this->_message->attach($attachment);
 
 		return $this;
 	}
